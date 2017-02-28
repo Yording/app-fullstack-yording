@@ -23,7 +23,7 @@ module.exports = {
     // the items with arrows to show more examples / advanced options
 
     entry: {
-        app: "./src/app.js"
+        app: "./src/index.js"
     }, // string | object | array
     // Here the application starts executing and webpack starts bundling
 

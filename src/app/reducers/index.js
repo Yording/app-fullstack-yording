@@ -1,8 +1,9 @@
 import {combineReducers} from 'redux';
-import todos from './todos';
+import songs from './songs';
 
-const rootReducer = combineReducers({
-  todos
+// Se combinan todos los reducers
+const reducer = combineReducers({
+  songs
 });
 
-export default rootReducer;
+export default reducer;
