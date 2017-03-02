@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import path from 'path';
 import {browserHistory, Router, Route} from 'react-router'
+import Header from '../components/Header'
 import SongAdder from '../components/SongAdder'
+
+import $ from 'jquery';
+import 'materialize-css';
 import '!style-loader!css-loader!resolve-url-loader!sass-loader?sourceMap!../../assets/sass/styles.scss'
 
 
@@ -9,9 +12,12 @@ import '!style-loader!css-loader!resolve-url-loader!sass-loader?sourceMap!../../
 class App extends Component {
     render() {
         return (
-            <Router history={browserHistory}>
-                <Route path="/" component={SongAdder} />
-            </Router>
+            <div>
+                <Header />
+                <Router history={browserHistory}>
+                    <Route path="/songs" component={SongAdder} />
+                </Router>
+            </div>
         );
     }
 }

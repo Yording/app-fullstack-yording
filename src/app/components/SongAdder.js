@@ -25,7 +25,7 @@ class SongAdder extends Component {
         })
 
         return (
-            <div>
+            <div className="container">
                 <input type="text" ref="name" />
                 <input type="submit" onClick={this.addSong} />    
                 <ul>
