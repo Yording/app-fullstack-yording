@@ -14,6 +14,7 @@ class AddArticle extends Component {
    componentDidMount(){
           fetch('http://localhost:3000/api/articles')
             .then(response => {
+                // console.log(response.json(),response)
                 return response.json()
             })
             .then(articles => {
@@ -42,10 +43,11 @@ class AddArticle extends Component {
                 body: JSON.stringify(form),
             })
             .then(response => {
-                console.log(response.status)
-                if(response.status == 200){
-                    this.props.addArticle(form)
-                }
+                return response.json()
+            })
+            .then(article => {
+
+                    this.props.addArticle(article.article)
             })
             .catch(err => {
                 console.log(err)
