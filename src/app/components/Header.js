@@ -18,7 +18,7 @@ class Header extends Component {
                         <ul className="right hide-on-med-and-down">
                         <li><a href="/songs">Songs</a></li>
                         <li><a href="/articles">Articles</a></li>
-                        <li><a className="dropdown-button" href="#!" ref="dropdown1">Yording <i className="fa fa-caret-down"></i></a></li>
+                        <li><a className="dropdown-button" href="#!" ref="dropdown">Yording <i className="fa fa-caret-down"></i></a></li>
                         </ul>
                     </div>
                 </nav>
