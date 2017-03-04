@@ -4,7 +4,16 @@ var Article = require('../models/article');
 
 module.exports = {
     getArticle: (req, res) => {
-        return null
+        var articleId = req.params.id
+        Article.findById(articleId, (err, article) => {
+            if(err)
+                return res.status(500).send({message: `Error al realizar la petición: ${err}`})
+
+            if(!article)
+                return status(404).send({message: "El articulo no existe"})
+
+            return res.status(200).send({article: article})
+        })
     },
     getArticles: (req, res) => {
         Article.find({}, (err, articles) => {
@@ -33,9 +42,29 @@ module.exports = {
         }) 
     },
     deleteArticle: (req, res) => {
-        return null
+        var articleId = req.params.id
+
+        Article.findById(articleId, (err, article) => {
+            if(err)
+                return res.status(500).send({message: `Error al realizar la petición: ${err}`})
+
+            article.remove(err => {
+                if(err)
+                    return res.status(500).send({message: `Error al borrar el articulo: ${err}`})
+
+                return res.status(200).send({ message: "El articulo ha sido eliminado" });
+            })
+        })
     },
     updateArticle: (req, res) => {
-        return null
+        var articleId = req.params.id
+        var update = req.body
+
+        Product.findByIdAndUpdate(articleId, update, (err, article) => {
+            if (err) 
+				return res.status(500).send({ message: `Error al actualizar el articulo: ${err}`});
+
+			return res.status(200).send({ article: article });
+        })
     }
 }

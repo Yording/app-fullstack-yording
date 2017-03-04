@@ -1,4 +1,4 @@
-import {ADD_ARTICLE, DELETE_ARTICLES,ADD_LIST_ARTICLES} from '../constants/ActionTypes'
+import {ADD_ARTICLE, DELETE_ARTICLE,ADD_LIST_ARTICLES,EDIT_ARTICLE} from '../constants/ActionTypes'
 
 export function addListArticles (Articles){
     return{
@@ -9,18 +9,21 @@ export function addListArticles (Articles){
 export function addArticle (Article) {
     return {
         type: ADD_ARTICLE,
-        data: {
-            title: Article.title,
-            description: Article.description,
-            url: Article.url,
-            tags: Article.tags
-        }
+        data: Article
+    }
+}
+
+export function editArticle (Article) {
+    return {
+        type: EDIT_ARTICLE,
+        id: Article._id,
+        data: Article
     }
 }
 
 export function deleteArticle (id) {
     return{
-        type: DELETE_ARTICLES,
+        type: DELETE_ARTICLE,
         id: id
     }
 }

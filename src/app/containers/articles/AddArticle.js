@@ -12,20 +12,47 @@ class AddArticle extends Component {
    }
 
    componentDidMount(){
+
+            // Antes de realizar el renderizado
+            // realiza una petición a la B.D para traer todos
+            // los articulos y actualizarlos en el state
           fetch('http://localhost:3000/api/articles')
             .then(response => {
-                // console.log(response.json(),response)
                 return response.json()
             })
             .then(articles => {
+                // despacha la llenar la lista de articulos
                 this.props.addListArticles(articles.articles)
             })
    }
+   handleOnClickDeleteArticle(id,e){
+        e.preventDefault();
+        fetch(`http://localhost:3000/api/articles/${id}`,{
+            method: 'DELETE',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            return response.status
+        })
+        .then(status => {
+            //Si la api devuelve un status 200 entonces despachamos la accion
+            if(status == 200){
+                this.props.deleteArticle(id)
+            }
+        })
+        .catch(err => {
+            console.log(err)
+        })
 
+   }
    handleOnClickAddArticle(e){
 
 		e.preventDefault();
 
+        //referencias de los campos
        let {title, description, url, tags}  = this.refs
        var form = {
            title: title.value,
@@ -33,7 +60,9 @@ class AddArticle extends Component {
            url: url.value,
            tags: tags.value
        }
-
+       // Promise que insertar un articulo en la B.D
+       // y luego de insertarlo lo devuelve en la promesa
+       // para actualizar el state de articulos
        fetch('http://localhost:3000/api/articles',{
                 method: 'POST',
                 headers: {
@@ -47,7 +76,8 @@ class AddArticle extends Component {
             })
             .then(article => {
 
-                    this.props.addArticle(article.article)
+                //Se despacha la acción
+                this.props.addArticle(article.article)
             })
             .catch(err => {
                 console.log(err)
@@ -60,11 +90,18 @@ class AddArticle extends Component {
    
     render() {
         let Articles;
+        // Si hay más de un articulo los lista con el componente Articule
+        // sino añade un card que informa no existen articulos
         if(this.props.articles.length > 0){
             Articles = this.props.articles.map((article) => {
                 return(
                     <li key={article._id}> 
-                        <Article url={article.url} title={article.title} description={article.description}/> 
+                        <Article 
+                            url={article.url} 
+                            title={article.title} 
+                            description={article.description}
+                            deleteArticle={this.handleOnClickDeleteArticle.bind(this,article._id)}
+                        /> 
                     </li>
                 )
             })
